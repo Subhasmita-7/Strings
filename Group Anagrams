@@ -1,0 +1,34 @@
+Input: strs = ["eat","tea","tan","ate","nat","bat"]
+Output: [["bat"],["nat","tan"],["ate","eat","tea"]]
+Explanation: "eat", "tea", and "ate" are all anagrams of each other. "tan" and "nat" are anagrams. "bat" is its own group. The order of the output groups and the order of strings within the groups does not matter.
+
+
+import java.util.*;
+
+class Solution {
+    public List<List<String>> groupAnagrams(String[] strs) {
+        if (strs == null || strs.length == 0) {
+            return new ArrayList<>();
+        }
+
+        Map<String, List<String>> anagramGroups = new HashMap<>();
+
+        for (String s : strs) {
+            // Create the canonical key by sorting the string
+            char[] charArray = s.toCharArray();
+            Arrays.sort(charArray);
+            String sortedString = new String(charArray);
+
+            // Get the list for this key, or create a new one if it doesn't exist
+            if (!anagramGroups.containsKey(sortedString)) {
+                anagramGroups.put(sortedString, new ArrayList<>());
+            }
+            
+            // Add the original string to the list
+            anagramGroups.get(sortedString).add(s);
+        }
+
+        // Return all the lists of anagrams from the map's values
+        return new ArrayList<>(anagramGroups.values());
+    }
+}
