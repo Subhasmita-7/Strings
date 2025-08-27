@@ -1,0 +1,38 @@
+Input: s = "abcabcbb"
+Let's look at the substrings:
+"a", "ab", "abc" -> all are valid, "abc" has length 3.
+"abca" -> invalid, 'a' repeats.
+"b", "bc", "bca", "bcab" -> "bca" is valid, length 3. "bcab" is invalid, 'b' repeats.
+The longest valid substring is "abc", with a length of 3.
+
+
+import java.util.HashMap;
+class Solution {
+    public int lengthOfLongestSubstring(String s) {
+        if (s.length() == 0) {
+            return 0;
+        }
+
+        HashMap<Character, Integer> charIndexMap = new HashMap<>();
+        int maxLength = 0;
+        int start = 0;
+
+        for (int end = 0; end < s.length(); end++) {
+            char currentChar = s.charAt(end);
+
+            // If the character is a duplicate and is within the current window,
+            // move the start pointer to the right of its last seen index.
+            if (charIndexMap.containsKey(currentChar) && charIndexMap.get(currentChar) >= start) {
+                start = charIndexMap.get(currentChar) + 1;
+            }
+
+            // Update the character's last seen index in the map
+            charIndexMap.put(currentChar, end);
+
+            // Calculate the length of the current substring and update the max length
+            maxLength = Math.max(maxLength, end - start + 1);
+        }
+
+        return maxLength;
+    }
+}
