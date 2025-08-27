@@ -1,0 +1,43 @@
+Input: s = "{[]}"
+Output: true
+Explanation: The { is the first to open, so it must be the last to close. The [] pair is nested correctly within it.
+
+
+
+import java.util.Stack;
+import java.util.HashMap;
+
+class Solution {
+    public boolean isValid(String s) {
+        Stack<Character> stack = new Stack<>();
+        
+        // A map to quickly check for a valid pair
+        HashMap<Character, Character> map = new HashMap<>();
+        map.put(')', '(');
+        map.put(']', '[');
+        map.put('}', '{');
+
+        for (char c : s.toCharArray()) {
+            if (c == '(' || c == '[' || c == '{') {
+                // It's an opening bracket, push it onto the stack
+                stack.push(c);
+            } else if (c == ')' || c == ']' || c == '}') {
+                // It's a closing bracket
+                
+                // If stack is empty, there's no opening bracket to match
+                if (stack.isEmpty()) {
+                    return false;
+                }
+                
+                // Pop the top of the stack and check if it's the correct opening bracket
+                char lastOpen = stack.pop();
+                if (map.get(c) != lastOpen) {
+                    return false;
+                }
+            }
+        }
+        
+        // After the loop, the stack must be empty for a valid string
+        return stack.isEmpty();
+    }
+}
