@@ -1,0 +1,41 @@
+Example: Input: banana apple
+          Output: aaabnn aelpp
+
+import java.util.Arrays;
+
+class Main {
+    public static String sortWordsInSentence(String sentence){
+        String[] words = sentence.split(" ");
+        String[] ans = new String[words.length];
+        
+        for(int i = 0; i < words.length; i++){
+            char[] w = words[i].toCharArray();
+            Arrays.sort(w);
+            
+            ans[i] = new String(w);
+        }
+        
+        StringBuilder str = new StringBuilder();
+        for(int i = 0; i < ans.length; i++){
+            str.append(ans[i]);
+            if(i < ans.length - 1){ 
+                str.append(" ");
+            }
+        }
+        
+        return str.toString();
+    }
+    
+    public static void main(String[] args) {
+        String input = "banana apple";
+
+        // Re-type the spaces on these lines
+        String output = sortWordsInSentence(input);
+
+        // Re-type the spaces on these lines
+        System.out.println("Input: \"" + input + "\"");
+
+        // Re-type the spaces on these lines
+        System.out.println("Output: \"" + output + "\"");
+    }
+}
