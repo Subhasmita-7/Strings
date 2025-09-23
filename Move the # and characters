@@ -7,18 +7,18 @@ class Main {
         Scanner sc = new Scanner(System.in);
         System.out.println("Enter a string:");
         String str = sc.nextLine();
-        String str1 = new String("");
-        String str2 = new String("");
+        StringBuilder str1 = new StringBuilder();
+        StringBuilder str2 = new StringBuilder();
         
         for(char c : str.toCharArray()){
             if(c == '#'){
-                str1 = str1 + c;
+                str1.append(c);
             }
             else{
-                str2 = str2 + c;
+                str2.append(c);
             }
         }
-        str1 = str1.concat(str2);
+        str1.append(str2);
         System.out.println("Output is " + str1);
     }
 }
