@@ -1,0 +1,32 @@
+Input: s = "aabcb"
+Output: 5
+The substrings with a non-zero beauty are "aab", "aabc", "aabcb", "bcb", and "abcb". Each of these has a beauty of 1.
+Sum of beauties = 1 (from "aab") + 1 (from "aabc") + 1 (from "aabcb") + 1 (from "bcb") + 1 (from "abcb") = 5.
+
+
+
+class Solution {
+    public int beautySum(String s) {
+        int n = s.length();
+        int beauty = 0;
+        for(int i = 0 ; i<n ; i++){
+            int[] arr = new int[26];
+            for(int j = i ; j<n ; j++){
+                char c = s.charAt(j);
+                arr[c-'a']++;
+
+                int maxi = 0;
+                int mini = Integer.MAX_VALUE;
+
+                for(int ele:arr){
+                    if(ele>0){
+                        maxi = Math.max(maxi,ele);
+                        mini = Math.min(mini,ele);
+                    }
+                }
+                beauty = beauty + (maxi-mini);
+            }
+        }
+        return beauty;
+    }
+}
