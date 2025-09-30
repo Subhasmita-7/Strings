@@ -1,0 +1,22 @@
+Input: s = "(1)+((2))+(((3)))"
+Output: 3
+Explanation:
+Digit 3 is inside of 3 nested parentheses in the string.
+
+
+class Solution {
+    public int maxDepth(String s) {
+        int count = 0;
+        int ans = 0;
+        for(char c : s.toCharArray()){
+            if(c == '('){
+                count++;
+            }
+            else if(c == ')'){
+                count--;
+            }
+            ans = Math.max(ans,count);
+        }
+        return ans;
+    }
+}
