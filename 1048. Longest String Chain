@@ -1,0 +1,26 @@
+Input: words = ["a","b","ba","bca","bda","bdca"]
+Output: 4
+Explanation: One of the longest word chains is ["a","ba","bda","bdca"].
+
+
+class Solution {
+    public int longestStrChain(String[] words) {
+        int maxLen = 0;
+        Arrays.sort(words, (a,b) -> a.length() - b.length());
+        Map<String, Integer> ans = new HashMap<>();
+
+        for(String s : words){
+            int currLen = 1;
+            for(int i=0 ; i<s.length() ; i++){
+                String predece = s.substring(0,i) + s.substring(i+1);
+
+                if(ans.containsKey(predece)){
+                    currLen = Math.max(currLen, ans.get(predece)+1);
+                }
+            }
+            ans.put(s , currLen);
+            maxLen = Math.max(maxLen,currLen);
+        }
+        return maxLen;
+    }
+}
